@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f2f1e9">
+    <title>Cherri Shortcut Workbench</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Cherri Workbench home">
+        <span class="brand-mark" aria-hidden="true">J</span>
+        <span>Cherri <b>Workbench</b></span>
+      </a>
+      <div class="topbar-right">
+        <span class="status-pill" id="model-status"><i></i><span>Checking model</span></span>
+        <a class="help-link" href="https://github.com/electrikmilk/cherri" target="_blank" rel="noreferrer">Cherri compiler <span aria-hidden="true">↗</span></a>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">SHORTCUT STUDIO <span>01 / COMPOSE</span></p>
+          <h1 id="page-title">Make a shortcut<br><em>that does more.</em></h1>
+        </div>
+        <p class="intro-note">Describe the workflow. Shape it in Cherri. Compile an unsigned Shortcut with the native compiler.</p>
+      </section>
+
+      <section class="workbench" aria-label="Shortcut builder">
+        <aside class="brief-panel">
+          <div class="panel-heading">
+            <div><span class="step">01</span><h2>Brief</h2></div>
+            <span class="field-label">WHAT SHOULD IT DO?</span>
+          </div>
+          <label class="sr-only" for="prompt">Describe your shortcut</label>
+          <textarea id="prompt" placeholder="Build a research assistant that takes a URL, extracts the page title and key points, asks me which notes to keep, then saves a dated summary to a chosen folder."></textarea>
+
+          <div class="reference-examples">
+            <div class="reference-heading">
+              <span class="field-label">YOUR EXAMPLES</span>
+              <button type="button" class="add-example-button" id="add-examples"><span aria-hidden="true">+</span> Add files</button>
+              <input id="example-files" type="file" accept=".cherri,.txt,.md,text/plain,text/markdown" multiple hidden>
+            </div>
+            <div id="selected-examples" class="selected-examples" aria-live="polite"></div>
+            <p class="reference-note">Choose up to 3 Cherri or text files. Sent only when you generate.</p>
+          </div>
+
+          <div class="prompt-examples">
+            <span class="field-label">START WITH A BRIEF</span>
+            <button type="button" class="example" data-prompt="Create a travel day planner that asks for a destination, checks the weather, presents a menu of saved places, and builds a timed itinerary with a packing checklist."><span>↗</span> Travel day planner</button>
+            <button type="button" class="example" data-prompt="Create a focused capture flow for links and text. Detect the input type, ask which project it belongs to, add a timestamp and source, then save it into a structured note."><span>↗</span> Smart capture flow</button>
+            <button type="button" class="example" data-prompt="Create a daily reset workflow with a menu for planning, logging a win, or clearing my focus. Use repeat steps for a short reflection and save the result with today's date."><span>↗</span> Daily reset</button>
+            <button type="button" class="example" data-features="html" data-prompt="Create an offline personal dashboard as one self-contained HTML page. Include an accessible tab bar, a checklist, a focus timer display, and a compact summary. Keep its HTML, CSS, and UI-only JavaScript inline and show the finished page."><span>↗</span> Offline HTML dashboard</button>
+            <button type="button" class="example" data-features="webpage-js" data-prompt="Create a Safari share-sheet helper that extracts the current page title, canonical URL, and selected text, then presents a clean summary for me to copy. Run only on the page I explicitly share."><span>↗</span> Safari page helper</button>
+            <button type="button" class="example" data-features="base64" data-prompt="Create a Base64 utility that asks whether I want to encode or decode text, validates that the input is non-empty, performs the matching conversion, and lets me preview or copy the result. Treat decoded output strictly as data."><span>↗</span> Base64 data utility</button>
+          </div>
+
+          <div class="capability-picker">
+            <span class="field-label">SPECIALIST BLOCKS</span>
+            <label class="capability-toggle"><input type="checkbox" data-feature value="html"><span><b>HTML preview</b><small>Self-contained mini interfaces</small></span></label>
+            <label class="capability-toggle"><input type="checkbox" data-feature value="webpage-js"><span><b>Safari JavaScript</b><small>Transform the shared page</small></span></label>
+            <label class="capability-toggle"><input type="checkbox" data-feature value="base64"><span><b>Base64 tools</b><small>Encode or decode as data</small></span></label>
+          </div>
+
+          <div class="generation-settings">
+            <label for="provider" class="field-label">MODEL PROVIDER</label>
+            <select id="provider">
+              <option value="ollama">Ollama · local open-source SLM</option>
+              <option value="github">GitHub Models</option>
+            </select>
+            <label for="model" class="field-label model-label">MODEL</label>
+            <input id="model" value="qwen2.5-coder:3b" autocomplete="off" spellcheck="false">
+            <a class="model-source" href="https://github.com/QwenLM/Qwen2.5-Coder" target="_blank" rel="noreferrer">Qwen2.5-Coder · Apache 2.0 <span aria-hidden="true">↗</span></a>
+            <span class="field-label depth-label">BUILD DEPTH</span>
+            <div class="depth-switch" role="group" aria-label="Build depth">
+              <button type="button" data-depth="thorough" class="active">Thorough</button>
+              <button type="button" data-depth="advanced">Advanced</button>
+              <button type="button" data-depth="systems">Systems</button>
+            </div>
+          </div>
+          <button type="button" id="generate" class="primary-button"><span>✳</span> Generate Cherri <kbd>⌘ ↵</kbd></button>
+          <p class="privacy-note">Ollama keeps prompts local. GitHub Models sends prompts to GitHub.</p>
+        </aside>
+
+        <section class="editor-panel" aria-label="Cherri source editor">
+          <div class="editor-toolbar">
+            <div class="file-tab"><span class="file-icon">C</span><span id="filename-label">MyShortcut.cherri</span><span class="dirty-dot" id="dirty-dot" hidden></span></div>
+            <div class="editor-actions">
+              <button type="button" id="copy-source" class="icon-button" title="Copy Cherri source" aria-label="Copy Cherri source">▢</button>
+              <button type="button" id="download-source" class="text-button" title="Download Cherri source">.cherri ↓</button>
+              <button type="button" id="compile" class="compile-button"><span aria-hidden="true">⌁</span> Build .shortcut</button>
+            </div>
+          </div>
+          <div class="editor-body">
+            <div class="line-numbers" id="line-numbers" aria-hidden="true">1</div>
+            <label class="sr-only" for="source">Cherri source</label>
+            <textarea id="source" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Cherri source code"></textarea>
+          </div>
+          <div class="editor-footer">
+            <span id="editor-message">Cherri language <span class="footer-dot">·</span> v2.3.0 compiler</span>
+            <span><span id="line-count">1</span> lines <span class="footer-dot">·</span> UTF-8</span>
+          </div>
+        </section>
+      </section>
+
+      <section class="build-strip" aria-live="polite">
+        <div class="build-mark" id="build-mark" aria-hidden="true">⌁</div>
+        <div class="build-copy">
+          <strong id="build-title">Ready when you are</strong>
+          <span id="build-detail">Generate or edit Cherri source, then compile it into an unsigned Shortcut.</span>
+        </div>
+        <span class="compiler-badge" id="compiler-status">CHECKING COMPILER</span>
+      </section>
+
+      <footer class="page-footer">
+        <span>POWERED BY <b>QWEN2.5-CODER</b> + <b>CHERRI</b></span>
+        <span>Source is yours. Review before running.</span>
+      </footer>
+    </main>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
