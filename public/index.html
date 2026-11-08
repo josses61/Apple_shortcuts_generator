@@ -14,7 +14,13 @@
   <body>
     <header class="topbar">
       <a class="brand" href="/" aria-label="Cherri Workbench home">
-        <span class="brand-mark" aria-hidden="true">J</span>
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" aria-hidden="true">
+            <circle cx="7" cy="14" r="4" fill="#d2e27b"/>
+            <circle cx="14" cy="14" r="4" fill="#d2e27b" opacity=".7"/>
+            <path d="M10.5 10 Q11 4 15 2" stroke="#d2e27b" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          </svg>
+        </span>
         <span>Cherri <b>Workbench</b></span>
       </a>
       <div class="topbar-right">
@@ -90,9 +96,27 @@
 
         <section class="editor-panel" aria-label="Cherri source editor">
           <div class="editor-toolbar">
-            <div class="file-tab"><span class="file-icon">C</span><span id="filename-label">MyShortcut.cherri</span><span class="dirty-dot" id="dirty-dot" hidden></span></div>
+            <div class="editor-toolbar-left">
+              <div class="file-tab">
+                <span class="file-icon" aria-hidden="true">C</span>
+                <label class="sr-only" for="shortcut-name">Shortcut name</label>
+                <input
+                  id="shortcut-name"
+                  class="filename-input"
+                  value="MyShortcut"
+                  autocomplete="off"
+                  spellcheck="false"
+                  aria-label="Shortcut filename"
+                  maxlength="60"
+                >
+                <span class="filename-ext">.cherri</span>
+                <span class="dirty-dot" id="dirty-dot" hidden aria-label="Unsaved changes"></span>
+              </div>
+            </div>
             <div class="editor-actions">
-              <button type="button" id="copy-source" class="icon-button" title="Copy Cherri source" aria-label="Copy Cherri source">▢</button>
+              <button type="button" id="copy-source" class="icon-button" title="Copy Cherri source" aria-label="Copy Cherri source">
+                <svg viewBox="0 0 16 16" fill="none" width="14" height="14" aria-hidden="true"><rect x="5" y="5" width="8" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 11V3.5A1.5 1.5 0 0 1 4.5 2H11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              </button>
               <button type="button" id="download-source" class="text-button" title="Download Cherri source">.cherri ↓</button>
               <button type="button" id="compile" class="compile-button"><span aria-hidden="true">⌁</span> Build .shortcut</button>
             </div>
@@ -115,11 +139,15 @@
           <strong id="build-title">Ready when you are</strong>
           <span id="build-detail">Generate or edit Cherri source, then compile it into an unsigned Shortcut.</span>
         </div>
+        <button type="button" id="build-error-copy" class="build-error-copy" hidden title="Copy error message" aria-label="Copy error message">
+          <svg viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><rect x="5" y="5" width="8" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M3 11V3.5A1.5 1.5 0 0 1 4.5 2H11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Copy
+        </button>
         <span class="compiler-badge" id="compiler-status">CHECKING COMPILER</span>
       </section>
 
       <footer class="page-footer">
-        <span>POWERED BY <b>QWEN2.5-CODER</b> + <b>CHERRI</b></span>
+        <span>POWERED BY <b id="footer-model">QWEN2.5-CODER</b> + <b>CHERRI</b></span>
         <span>Source is yours. Review before running.</span>
       </footer>
     </main>
