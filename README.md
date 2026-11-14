@@ -1,5 +1,7 @@
 # Cherri Shortcut Workbench
 
+<img src="docs/banner.png" alt="Cherri Shortcut Workbench - write and compile Apple Shortcuts locally" width="100%">
+
 A small web app for building Apple Shortcuts. Describe what you want the shortcut to do, let a
 local model write the [Cherri](https://github.com/electrikmilk/cherri) source, then compile it
 into a `.shortcut` file you can open on your iPhone, iPad or Mac.
